@@ -15,10 +15,10 @@ export default function Services() {
   return (
     <section id="services" className="py-24 px-6 bg-[#1B4332]">
       <div className="max-w-6xl mx-auto">
-        <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
+        <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3 text-center">
           What we do
         </p>
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-12">
+        <h2 className="text-4xl md:text-6xl font-bold text-white mb-12 text-center">
           Tree surgery services
         </h2>
 

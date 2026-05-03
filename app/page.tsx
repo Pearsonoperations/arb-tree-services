@@ -2,6 +2,7 @@ import Image from "next/image";
 import Nav from "./components/Nav";
 import HorizontalGallery from "./components/HorizontalGallery";
 import Services from "./components/Services";
+import AboutSection from "./components/AboutSection";
 import FAQ from "./components/FAQ";
 
 const reviews = [
@@ -170,37 +171,7 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-24 px-6 bg-[#EEF5F1]">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
-              About us
-            </p>
-            <h2 className="text-4xl md:text-6xl font-bold text-[#1B4332] mb-6">
-              40 years. Same standards.
-            </h2>
-            <p className="text-[#6B7280] leading-relaxed mb-4">
-              ARB Tree Services has been caring for trees across Dudley and the West Midlands for over four decades. Every job we take on is treated the same — safe, clean, professional.
-            </p>
-            <p className="text-[#6B7280] leading-relaxed mb-4">
-              We're NVQ qualified arborists who work to BS 3998 — the British Standard for tree work. We carry full public liability insurance and hold a Waste Carriers Licence, so your garden is left exactly as we found it.
-            </p>
-            <p className="text-[#6B7280] leading-relaxed">
-              No call centres. No subcontractors. Just an experienced local team who turn up when they say they will.
-            </p>
-          </div>
-          <div className="rounded-3xl overflow-hidden">
-            <Image
-              src="/gallery-1.jpg"
-              alt="ARB Tree Services team at work"
-              width={600}
-              height={600}
-              className="w-full h-auto object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        </div>
-      </section>
+      <AboutSection />
 
       {/* Areas */}
       <section id="areas" className="py-24 px-6 bg-[#D1E8D8]">

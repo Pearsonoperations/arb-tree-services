@@ -27,6 +27,25 @@
 
 
 
+.slide-from-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-from-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition-delay: 0.15s;
+}
+
+.slide-from-left.in-view,
+.slide-from-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 * { box-sizing: border-box; }
 
 html {
