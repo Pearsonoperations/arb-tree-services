@@ -17,7 +17,7 @@ export default function AboutSection() {
       if (!el) return;
       el.style.opacity = "0";
       el.style.transform = el === textRef.current ? "translateX(-60px)" : "translateX(60px)";
-      el.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
+      el.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
     });
 
     const observer = new IntersectionObserver(
@@ -25,7 +25,7 @@ export default function AboutSection() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          const delay = el === textRef.current ? 0 : 150;
+          const delay = el === textRef.current ? 0 : 400;
           setTimeout(() => {
             el.style.opacity = "1";
             el.style.transform = "translateX(0)";

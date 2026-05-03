@@ -31,75 +31,74 @@ const faqs = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const listRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const list = listRef.current;
-    if (!list) return;
-    const items = Array.from(list.querySelectorAll<HTMLElement>("[data-faq]"));
-    items.forEach((item) => {
-      item.style.opacity = "0";
-      item.style.transform = "translateY(24px)";
-      item.style.transition = "opacity 0.5s ease-out, transform 0.5s ease-out";
-    });
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const items = Array.from(container.querySelectorAll<HTMLElement>("[data-faq]"));
+    const observers: IntersectionObserver[] = [];
+
+    items.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(30px)";
+      el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
           if (!entry.isIntersecting) return;
-          items.forEach((item, i) => {
-            setTimeout(() => {
-              item.style.opacity = "1";
-              item.style.transform = "translateY(0)";
-            }, i * 80);
-          });
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
           observer.disconnect();
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(list);
-    return () => observer.disconnect();
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   return (
     <section id="faq" className="py-24 px-6 bg-[#EEF5F1]">
       <div className="max-w-3xl mx-auto">
-        <div ref={listRef}>
-        <p data-faq className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
-          FAQ
-        </p>
-        <h2 data-faq className="text-4xl md:text-6xl font-bold text-[#1B4332] mb-12">
-          Common questions
-        </h2>
+        <div ref={containerRef}>
+          <p data-faq className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
+            FAQ
+          </p>
+          <h2 data-faq className="text-4xl md:text-6xl font-bold text-[#1B4332] mb-12">
+            Common questions
+          </h2>
 
-        <div className="divide-y divide-[#E5E7EB]">
-          {faqs.map((faq, i) => (
-            <div key={i} data-faq>
-              <button
-                className="w-full text-left py-5 flex items-center justify-between gap-4 group"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              >
-                <span className="font-semibold text-[#111827] group-hover:text-[#1B4332] transition-colors">
-                  {faq.q}
-                </span>
-                <span className="flex-shrink-0 text-[#16A34A]">
-                  {openIndex === i ? (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
-                </span>
-              </button>
-              {openIndex === i && (
-                <p className="pb-5 text-[#6B7280] leading-relaxed">{faq.a}</p>
-              )}
-            </div>
-          ))}
-        </div>
+          <div className="divide-y divide-[#E5E7EB]">
+            {faqs.map((faq, i) => (
+              <div key={i} data-faq>
+                <button
+                  className="w-full text-left py-5 flex items-center justify-between gap-4 group"
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                >
+                  <span className="font-semibold text-[#111827] group-hover:text-[#1B4332] transition-colors">
+                    {faq.q}
+                  </span>
+                  <span className="flex-shrink-0 text-[#16A34A]">
+                    {openIndex === i ? (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </span>
+                </button>
+                {openIndex === i && (
+                  <p className="pb-5 text-[#6B7280] leading-relaxed">{faq.a}</p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

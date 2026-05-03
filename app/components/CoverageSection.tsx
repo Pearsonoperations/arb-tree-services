@@ -22,13 +22,13 @@ export default function CoverageSection() {
       if (!el) return;
       el.style.opacity = "0";
       el.style.transform = `translateX(${x})`;
-      el.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
+      el.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
     });
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const delay = entry.target === mapRef.current ? 150 : 0;
+          const delay = entry.target === mapRef.current ? 400 : 0;
           setTimeout(() => {
             (entry.target as HTMLElement).style.opacity = "1";
             (entry.target as HTMLElement).style.transform = "translateX(0)";

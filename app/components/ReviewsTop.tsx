@@ -27,39 +27,35 @@ function Stars({ count }: { count: number }) {
   return <span className="text-[#16A34A] text-sm">{"★".repeat(count)}</span>;
 }
 
-function useStaggerReveal(ref: React.RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const container = ref.current;
-    if (!container) return;
-    const items = Array.from(container.querySelectorAll<HTMLElement>("[data-animate]"));
-    items.forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(40px)";
-      el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
-    });
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          items.forEach((el, i) => {
-            setTimeout(() => {
-              el.style.opacity = "1";
-              el.style.transform = "translateY(0)";
-            }, i * 90);
-          });
-          observer.disconnect();
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, [ref]);
-}
-
 export default function ReviewsTop() {
   const containerRef = useRef<HTMLDivElement>(null);
-  useStaggerReveal(containerRef as React.RefObject<HTMLElement>);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const items = Array.from(container.querySelectorAll<HTMLElement>("[data-animate]"));
+    const observers: IntersectionObserver[] = [];
+
+    items.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(50px)";
+      el.style.transition = "opacity 0.7s ease-out, transform 0.7s ease-out";
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+          observer.disconnect();
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   return (
     <section className="py-20 px-6 bg-[#EEF5F1]">
