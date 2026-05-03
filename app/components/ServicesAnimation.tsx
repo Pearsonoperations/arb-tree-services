@@ -83,7 +83,7 @@ export default function ServicesAnimation() {
                 alt="Tree illustration"
                 width={320}
                 height={427}
-                className="w-56 lg:w-80 h-auto"
+                className="w-56 lg:w-80 h-auto mix-blend-screen"
                 sizes="320px"
                 priority
               />
