@@ -64,14 +64,15 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-24 px-6 bg-[#EEF5F1]">
       <div className="max-w-3xl mx-auto">
-        <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
+        <div ref={listRef}>
+        <p data-faq className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
           FAQ
         </p>
-        <h2 className="text-4xl md:text-6xl font-bold text-[#1B4332] mb-12">
+        <h2 data-faq className="text-4xl md:text-6xl font-bold text-[#1B4332] mb-12">
           Common questions
         </h2>
 
-        <div ref={listRef} className="divide-y divide-[#E5E7EB]">
+        <div className="divide-y divide-[#E5E7EB]">
           {faqs.map((faq, i) => (
             <div key={i} data-faq>
               <button
@@ -98,6 +99,7 @@ export default function FAQ() {
               )}
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

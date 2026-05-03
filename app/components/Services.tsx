@@ -15,55 +15,53 @@ const services = [
 ];
 
 export default function Services() {
-  const gridRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
-
-    const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-card]"));
-
-    cards.forEach((card) => {
-      card.style.opacity = "0";
-      card.style.transform = "translateY(40px)";
-      card.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+    const container = containerRef.current;
+    if (!container) return;
+    const items = Array.from(container.querySelectorAll<HTMLElement>("[data-animate]"));
+    items.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(40px)";
+      el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
     });
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          cards.forEach((card, i) => {
+          items.forEach((el, i) => {
             setTimeout(() => {
-              card.style.opacity = "1";
-              card.style.transform = "translateY(0)";
-            }, i * 80);
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+            }, i * 70);
           });
           observer.disconnect();
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
-
-    observer.observe(grid);
+    observer.observe(container);
     return () => observer.disconnect();
   }, []);
 
   return (
     <section id="services" className="py-24 px-6 bg-[#1B4332]">
-      <div className="max-w-6xl mx-auto">
-        <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3 text-center">
-          What we do
-        </p>
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-12 text-center">
-          Tree surgery services
-        </h2>
+      <div ref={containerRef} className="max-w-6xl mx-auto">
+        <div data-animate className="text-center mb-12">
+          <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
+            What we do
+          </p>
+          <h2 className="text-4xl md:text-6xl font-bold text-white">
+            Tree surgery services
+          </h2>
+        </div>
 
-        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {services.map((svc) => (
             <a
               key={svc.title}
-              data-card
+              data-animate
               href="tel:07986173679"
               className="group relative overflow-hidden rounded-2xl block"
               style={{ aspectRatio: "3/4" }}

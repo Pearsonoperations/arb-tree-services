@@ -27,41 +27,44 @@ function Stars({ count }: { count: number }) {
   return <span className="text-[#16A34A] text-sm">{"★".repeat(count)}</span>;
 }
 
-export default function ReviewsTop() {
-  const gridRef = useRef<HTMLDivElement>(null);
-
+function useStaggerReveal(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-card]"));
-    cards.forEach((card) => {
-      card.style.opacity = "0";
-      card.style.transform = "translateY(40px)";
-      card.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+    const container = ref.current;
+    if (!container) return;
+    const items = Array.from(container.querySelectorAll<HTMLElement>("[data-animate]"));
+    items.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(40px)";
+      el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
     });
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          cards.forEach((card, i) => {
+          items.forEach((el, i) => {
             setTimeout(() => {
-              card.style.opacity = "1";
-              card.style.transform = "translateY(0)";
-            }, i * 100);
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+            }, i * 90);
           });
           observer.disconnect();
         });
       },
       { threshold: 0.1 }
     );
-    observer.observe(grid);
+    observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [ref]);
+}
+
+export default function ReviewsTop() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  useStaggerReveal(containerRef as React.RefObject<HTMLElement>);
 
   return (
     <section className="py-20 px-6 bg-[#EEF5F1]">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+      <div ref={containerRef} className="max-w-6xl mx-auto">
+        <div data-animate className="text-center mb-12">
           <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-2">
             Google Reviews
           </p>
@@ -69,9 +72,9 @@ export default function ReviewsTop() {
             100 reviews. 4.9 stars.
           </h2>
         </div>
-        <div ref={gridRef} className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {reviews.map((r, i) => (
-            <div key={i} data-card className="bg-white rounded-2xl p-6">
+            <div key={i} data-animate className="bg-white rounded-2xl p-6">
               <Stars count={r.rating} />
               <p className="mt-3 text-[#111827] leading-relaxed">{r.text}</p>
               <div className="mt-4 flex items-center justify-between">
