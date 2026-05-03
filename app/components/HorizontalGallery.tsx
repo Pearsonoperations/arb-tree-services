@@ -23,16 +23,7 @@ export default function HorizontalGallery() {
         </h2>
       </div>
 
-      {/* Gradient overlays instead of CSS mask — mask creates a stacking context that breaks GSAP pin layering */}
       <div className="relative w-full overflow-hidden">
-        <div
-          className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to right, #F7FAF8, transparent)" }}
-        />
-        <div
-          className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to left, #F7FAF8, transparent)" }}
-        />
         <div className="gallery-track flex gap-5" style={{ width: "max-content" }}>
           {loopPhotos.map((photo, i) => (
             <div

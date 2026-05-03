@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Nav from "./components/Nav";
 import HorizontalGallery from "./components/HorizontalGallery";
-import ServicesAnimation from "./components/ServicesAnimation";
+import Services from "./components/Services";
 import FAQ from "./components/FAQ";
 
 const reviews = [
@@ -150,8 +150,8 @@ export default function Home() {
       {/* Auto-scroll gallery */}
       <HorizontalGallery />
 
-      {/* Services animation — pinned */}
-      <ServicesAnimation />
+      {/* Services */}
+      <Services />
 
       {/* 2 more reviews after gallery */}
       <section className="py-20 px-6 bg-[#F7FAF8]">
