@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Nav from "./components/Nav";
-import ScrollExpandHero from "./components/ScrollExpandHero";
 import HorizontalGallery from "./components/HorizontalGallery";
 import Services from "./components/Services";
 import AboutSection from "./components/AboutSection";
@@ -15,21 +14,26 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <ScrollExpandHero
-        mediaSrc="/hero-original.jpg"
-        bgImageSrc="/gallery-1.jpg"
-        title="ARB Tree Services"
-        subtitle="Dudley · West Midlands"
-        scrollToExpand="Scroll to explore"
-      >
-        <div className="flex flex-col items-center text-center gap-6 max-w-xl mx-auto">
-          <p className="text-[#1B4332] font-semibold text-lg">
-            40 years experience. NVQ qualified. Fully insured.
+      <section className="relative h-[90vh] min-h-[600px] flex items-end pb-20">
+        <Image
+          src="/hero-original.jpg"
+          alt="ARB Tree Services — professional tree surgeons"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#1B4332]/45" />
+        <div className="relative z-10 w-full px-6 flex flex-col items-center text-center">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+            ARB Tree Services
+          </h1>
+          <p className="text-white/90 text-lg font-bold mb-10 max-w-md">
+            40 years experience. NVQ qualified. Fully insured. Call or WhatsApp Sean today for a free quote.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="tel:07986173679"
-              className="bg-[#1B4332] text-white font-bold text-xl px-10 py-4 rounded-full hover:bg-[#14532D] transition-colors inline-flex items-center justify-center gap-2"
+              className="bg-white text-[#1B4332] font-bold text-xl px-10 py-4 rounded-full hover:bg-[#F7FAF8] transition-colors inline-flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -49,7 +53,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </ScrollExpandHero>
+      </section>
 
       {/* Trust bar */}
       <section className="bg-[#1B4332] py-6 px-6">
