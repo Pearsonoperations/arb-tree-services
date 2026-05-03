@@ -31,6 +31,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${outfit.variable} ${dmSans.variable} h-full antialiased`}
+      style={{ colorScheme: "light" }}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
