@@ -28,7 +28,7 @@ export default function CoverageSection() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const delay = entry.target === mapRef.current ? 800 : 0;
+          const delay = entry.target === mapRef.current ? 700 : 0;
           setTimeout(() => {
             (entry.target as HTMLElement).style.opacity = "1";
             (entry.target as HTMLElement).style.transform = "translateX(0)";

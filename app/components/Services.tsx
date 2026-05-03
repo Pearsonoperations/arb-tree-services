@@ -28,14 +28,20 @@ export default function Services() {
       el.style.transform = "translateY(50px)";
       el.style.transition = "opacity 0.7s ease-out, transform 0.7s ease-out";
 
+      const isCard = el.dataset.col !== undefined;
+      const colDelay = parseInt(el.dataset.col ?? "0", 10) * 150;
+      const threshold = isCard ? 0.6 : 0.3;
+
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
+          setTimeout(() => {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          }, colDelay);
           observer.disconnect();
         },
-        { threshold: 0.3 }
+        { threshold }
       );
       observer.observe(el);
       observers.push(observer);
@@ -57,10 +63,11 @@ export default function Services() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {services.map((svc) => (
+          {services.map((svc, i) => (
             <a
               key={svc.title}
               data-animate
+              data-col={String(i % 4)}
               href="tel:07986173679"
               className="group relative overflow-hidden rounded-2xl block"
               style={{ aspectRatio: "3/4" }}

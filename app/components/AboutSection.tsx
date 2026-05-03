@@ -25,7 +25,7 @@ export default function AboutSection() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          const delay = el === textRef.current ? 0 : 800;
+          const delay = el === textRef.current ? 0 : 700;
           setTimeout(() => {
             el.style.opacity = "1";
             el.style.transform = "translateX(0)";
