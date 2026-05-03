@@ -35,7 +35,7 @@ export default function Services() {
           el.style.transform = "translateY(0)";
           observer.disconnect();
         },
-        { threshold: 0.15 }
+        { threshold: 0.3 }
       );
       observer.observe(el);
       observers.push(observer);

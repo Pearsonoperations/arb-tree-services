@@ -25,7 +25,7 @@ export default function AboutSection() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          const delay = el === textRef.current ? 0 : 400;
+          const delay = el === textRef.current ? 0 : 800;
           setTimeout(() => {
             el.style.opacity = "1";
             el.style.transform = "translateX(0)";
@@ -33,7 +33,7 @@ export default function AboutSection() {
           observer.unobserve(el);
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.3 }
     );
 
     items.forEach(({ el }) => { if (el) observer.observe(el); });

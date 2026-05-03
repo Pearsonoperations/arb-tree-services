@@ -28,7 +28,7 @@ export default function CoverageSection() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const delay = entry.target === mapRef.current ? 400 : 0;
+          const delay = entry.target === mapRef.current ? 800 : 0;
           setTimeout(() => {
             (entry.target as HTMLElement).style.opacity = "1";
             (entry.target as HTMLElement).style.transform = "translateX(0)";
@@ -36,7 +36,7 @@ export default function CoverageSection() {
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.3 }
     );
     [textRef.current, mapRef.current].forEach((el) => { if (el) observer.observe(el); });
     return () => observer.disconnect();

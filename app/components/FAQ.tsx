@@ -51,7 +51,7 @@ export default function FAQ() {
           el.style.transform = "translateY(0)";
           observer.disconnect();
         },
-        { threshold: 0.3 }
+        { threshold: 0.6 }
       );
       observer.observe(el);
       observers.push(observer);

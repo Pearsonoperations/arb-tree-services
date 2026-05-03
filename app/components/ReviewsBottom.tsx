@@ -42,7 +42,7 @@ export default function ReviewsBottom() {
           el.style.transform = "translateY(0)";
           observer.disconnect();
         },
-        { threshold: 0.2 }
+        { threshold: 0.4 }
       );
       observer.observe(el);
       observers.push(observer);
