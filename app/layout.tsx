@@ -1,4 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+};
 import { Outfit, DM_Sans } from "next/font/google";
 import "./globals.css";
 

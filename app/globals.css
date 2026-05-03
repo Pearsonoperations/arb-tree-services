@@ -29,7 +29,14 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  html { color-scheme: light; }
+}
 
 body {
   background: #fff;
