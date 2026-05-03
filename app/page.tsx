@@ -3,55 +3,10 @@ import Nav from "./components/Nav";
 import HorizontalGallery from "./components/HorizontalGallery";
 import Services from "./components/Services";
 import AboutSection from "./components/AboutSection";
+import ReviewsTop from "./components/ReviewsTop";
+import ReviewsBottom from "./components/ReviewsBottom";
+import CoverageSection from "./components/CoverageSection";
 import FAQ from "./components/FAQ";
-
-const reviews = [
-  {
-    name: "Sarah M.",
-    rating: 5,
-    text: "Sean and his team were absolutely brilliant. Turned up on time, removed a huge oak that was overhanging our roof, and left the garden immaculate. Wouldn't use anyone else.",
-    date: "2 weeks ago",
-  },
-  {
-    name: "Dave T.",
-    rating: 5,
-    text: "Called on a Friday afternoon after a storm took down a large branch onto my fence. They were out the same day and sorted everything. Brilliant service, fair price.",
-    date: "1 month ago",
-  },
-  {
-    name: "Karen H.",
-    rating: 5,
-    text: "Used ARB twice now — once for a crown reduction and once for hedge cutting. Proper professionals. You can tell they know exactly what they're doing.",
-    date: "6 weeks ago",
-  },
-  {
-    name: "Mike B.",
-    rating: 5,
-    text: "Got three quotes. ARB weren't the cheapest but they were the most thorough — checked the tree, explained what needed doing and why. That's the difference 40 years makes.",
-    date: "2 months ago",
-  },
-  {
-    name: "Joanne P.",
-    rating: 5,
-    text: "Stump grinding done in under an hour on a tree I'd had out years ago. Tidy, quick, reasonable. Will be recommending to everyone.",
-    date: "3 months ago",
-  },
-];
-
-
-const areas = [
-  "Dudley", "Wolverhampton", "Birmingham", "Stourbridge",
-  "Halesowen", "Walsall", "Brierley Hill", "Tipton",
-  "Sedgley", "Kingswinford", "Quarry Bank", "West Midlands",
-];
-
-function Stars({ count }: { count: number }) {
-  return (
-    <span className="text-[#16A34A] text-sm">
-      {"★".repeat(count)}
-    </span>
-  );
-}
 
 export default function Home() {
   return (
@@ -122,31 +77,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3 reviews */}
-      <section className="py-20 px-6 bg-[#EEF5F1]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-2">
-              Google Reviews
-            </p>
-            <h2 className="text-4xl md:text-6xl font-bold text-[#1B4332]">
-              100 reviews. 4.9 stars.
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.slice(0, 3).map((r, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6">
-                <Stars count={r.rating} />
-                <p className="mt-3 text-[#111827] leading-relaxed">{r.text}</p>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="font-semibold text-sm text-[#1B4332]">{r.name}</span>
-                  <span className="text-xs text-[#6B7280]">{r.date}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReviewsTop />
 
       {/* Auto-scroll gallery */}
       <HorizontalGallery />
@@ -154,61 +85,12 @@ export default function Home() {
       {/* Services */}
       <Services />
 
-      {/* 2 more reviews after gallery */}
-      <section className="py-20 px-6 bg-[#F7FAF8]">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
-          {reviews.slice(3).map((r, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6">
-              <Stars count={r.rating} />
-              <p className="mt-3 text-[#111827] leading-relaxed">{r.text}</p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="font-semibold text-sm text-[#1B4332]">{r.name}</span>
-                <span className="text-xs text-[#6B7280]">{r.date}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ReviewsBottom />
 
       {/* About */}
       <AboutSection />
 
-      {/* Areas */}
-      <section id="areas" className="py-24 px-6 bg-[#D1E8D8]">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
-              Coverage
-            </p>
-            <h2 className="text-4xl md:text-6xl font-bold text-[#1B4332] mb-4">
-              Serving Dudley &amp; the West Midlands
-            </h2>
-            <p className="text-[#6B7280] mb-10 max-w-lg">
-              Based in Dudley, we cover the entire West Midlands region. Not sure if we cover your area? Call us — chances are we do.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {areas.map((area) => (
-                <span
-                  key={area}
-                  className="bg-white border border-[#E5E7EB] text-[#1B4332] font-semibold text-sm px-4 py-2 rounded-full"
-                >
-                  {area}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-3xl overflow-hidden">
-            <Image
-              src="/west-midlands-map.jpg"
-              alt="West Midlands coverage map"
-              width={600}
-              height={450}
-              className="w-full h-auto"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        </div>
-      </section>
+      <CoverageSection />
 
       {/* FAQ */}
       <FAQ />

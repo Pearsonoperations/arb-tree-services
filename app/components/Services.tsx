@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const services = [
@@ -12,6 +15,40 @@ const services = [
 ];
 
 export default function Services() {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-card]"));
+
+    cards.forEach((card) => {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(40px)";
+      card.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          cards.forEach((card, i) => {
+            setTimeout(() => {
+              card.style.opacity = "1";
+              card.style.transform = "translateY(0)";
+            }, i * 80);
+          });
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="services" className="py-24 px-6 bg-[#1B4332]">
       <div className="max-w-6xl mx-auto">
@@ -22,10 +59,11 @@ export default function Services() {
           Tree surgery services
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {services.map((svc) => (
             <a
               key={svc.title}
+              data-card
               href="tel:07986173679"
               className="group relative overflow-hidden rounded-2xl block"
               style={{ aspectRatio: "3/4" }}

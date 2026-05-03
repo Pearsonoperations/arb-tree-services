@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const faqs = [
   {
@@ -31,6 +31,35 @@ const faqs = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const items = Array.from(list.querySelectorAll<HTMLElement>("[data-faq]"));
+    items.forEach((item) => {
+      item.style.opacity = "0";
+      item.style.transform = "translateY(24px)";
+      item.style.transition = "opacity 0.5s ease-out, transform 0.5s ease-out";
+    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          items.forEach((item, i) => {
+            setTimeout(() => {
+              item.style.opacity = "1";
+              item.style.transform = "translateY(0)";
+            }, i * 80);
+          });
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="faq" className="py-24 px-6 bg-[#EEF5F1]">
@@ -42,9 +71,9 @@ export default function FAQ() {
           Common questions
         </h2>
 
-        <div className="divide-y divide-[#E5E7EB]">
+        <div ref={listRef} className="divide-y divide-[#E5E7EB]">
           {faqs.map((faq, i) => (
-            <div key={i}>
+            <div key={i} data-faq>
               <button
                 className="w-full text-left py-5 flex items-center justify-between gap-4 group"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
