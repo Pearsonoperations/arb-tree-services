@@ -78,6 +78,7 @@ export default function HeroVideoExpand() {
         width: `calc(${(1 - p) * startW}px + ${p * 100}%)`,
         height: `calc(${(1 - p) * startH}px + ${p * 100}%)`,
         borderRadius: `${(1 - p) * 16}px`,
+        opacity: p,
         zIndex: 5,
         overflow: "hidden",
         transition: "none",
