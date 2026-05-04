@@ -20,12 +20,14 @@ export default function AboutSection() {
       el.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
     });
 
+    const isMobile = window.innerWidth < 768;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          const delay = el === textRef.current ? 0 : 700;
+          const delay = el === textRef.current ? 0 : isMobile ? 150 : 700;
           setTimeout(() => {
             el.style.opacity = "1";
             el.style.transform = "translateX(0)";

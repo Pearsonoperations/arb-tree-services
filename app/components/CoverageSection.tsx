@@ -24,11 +24,13 @@ export default function CoverageSection() {
       el.style.transform = `translateX(${x})`;
       el.style.transition = "opacity 0.9s ease-out, transform 0.9s ease-out";
     });
+    const isMobile = window.innerWidth < 768;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const delay = entry.target === mapRef.current ? 700 : 0;
+          const delay = entry.target === mapRef.current ? (isMobile ? 150 : 700) : 0;
           setTimeout(() => {
             (entry.target as HTMLElement).style.opacity = "1";
             (entry.target as HTMLElement).style.transform = "translateX(0)";
