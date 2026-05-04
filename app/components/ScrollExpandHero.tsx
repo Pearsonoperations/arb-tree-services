@@ -4,8 +4,10 @@ import { useEffect, useRef, useState, ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-interface Props {
+interface ScrollExpandHeroProps {
+  mediaType?: "video" | "image";
   mediaSrc: string;
+  posterSrc?: string;
   bgImageSrc: string;
   title?: string;
   subtitle?: string;
@@ -14,13 +16,15 @@ interface Props {
 }
 
 export default function ScrollExpandHero({
+  mediaType = "image",
   mediaSrc,
+  posterSrc,
   bgImageSrc,
   title,
   subtitle,
   scrollToExpand,
   children,
-}: Props) {
+}: ScrollExpandHeroProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showContent, setShowContent] = useState(false);
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState(false);
@@ -29,10 +33,10 @@ export default function ScrollExpandHero({
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
@@ -95,16 +99,13 @@ export default function ScrollExpandHero({
 
   const mediaW = 320 + scrollProgress * (isMobile ? 700 : 1300);
   const mediaH = 420 + scrollProgress * (isMobile ? 180 : 380);
-  const textShift = scrollProgress * (isMobile ? 200 : 160);
-
-  const firstWord = title?.split(" ")[0] ?? "";
-  const restTitle = title?.split(" ").slice(1).join(" ") ?? "";
 
   return (
     <div ref={sectionRef} className="overflow-x-hidden">
       <section className="relative flex flex-col items-center justify-start min-h-[100dvh]">
         <div className="relative w-full flex flex-col items-center min-h-[100dvh]">
-          {/* Background image fades out as media expands */}
+
+          {/* Background fades out as media expands */}
           <motion.div
             className="absolute inset-0 z-0 h-full"
             animate={{ opacity: 1 - scrollProgress }}
@@ -122,6 +123,7 @@ export default function ScrollExpandHero({
 
           <div className="container mx-auto flex flex-col items-center justify-start relative z-10">
             <div className="flex flex-col items-center justify-center w-full h-[100dvh] relative">
+
               {/* Expanding media */}
               <div
                 className="absolute z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl overflow-hidden"
@@ -134,58 +136,61 @@ export default function ScrollExpandHero({
                   transition: "none",
                 }}
               >
-                <Image
-                  src={mediaSrc}
-                  alt={title ?? "Hero"}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <motion.div
-                  className="absolute inset-0 bg-black/40"
-                  animate={{ opacity: 0.6 - scrollProgress * 0.5 }}
-                  transition={{ duration: 0.1 }}
-                />
+                {mediaType === "video" ? (
+                  <div className="relative w-full h-full pointer-events-none">
+                    <video
+                      src={mediaSrc}
+                      poster={posterSrc}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="w-full h-full object-cover"
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-black/40"
+                      animate={{ opacity: 0.5 - scrollProgress * 0.4 }}
+                      transition={{ duration: 0.1 }}
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={mediaSrc}
+                      alt={title ?? "Hero"}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-black/40"
+                      animate={{ opacity: 0.5 - scrollProgress * 0.4 }}
+                      transition={{ duration: 0.1 }}
+                    />
+                  </div>
+                )}
               </div>
 
-              {/* Scroll hint below media */}
-              {scrollToExpand && (
-                <div
-                  className="flex flex-col items-center text-center relative z-10 mt-4"
-                  style={{ transition: "none" }}
-                >
-                  <p
-                    className="text-white/60 text-sm font-medium tracking-widest uppercase"
-                    style={{ transform: `translateX(${textShift}vw)` }}
-                  >
+              {/* Text — stays centered and visible throughout */}
+              <div className="relative z-10 flex flex-col items-center text-center px-6 pointer-events-none">
+                {subtitle && (
+                  <p className="text-white/80 text-sm font-semibold tracking-widest uppercase mb-4">
+                    {subtitle}
+                  </p>
+                )}
+                {title && (
+                  <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight drop-shadow-lg">
+                    {title}
+                  </h1>
+                )}
+                {scrollToExpand && (
+                  <p className="mt-6 text-white/60 text-sm font-medium tracking-widest uppercase">
                     {scrollToExpand}
                   </p>
-                </div>
-              )}
-
-              {/* Title splits apart as media expands */}
-              {subtitle && (
-                <p
-                  className="text-white/70 text-sm font-semibold tracking-widest uppercase relative z-10 mb-3"
-                  style={{ transform: `translateX(-${textShift}vw)`, transition: "none" }}
-                >
-                  {subtitle}
-                </p>
-              )}
-              <div className="flex flex-col items-center justify-center text-center gap-2 w-full relative z-10 mix-blend-difference">
-                <h1
-                  className="text-5xl md:text-7xl font-extrabold text-white"
-                  style={{ transform: `translateX(-${textShift}vw)`, transition: "none" }}
-                >
-                  {firstWord}
-                </h1>
-                <h1
-                  className="text-5xl md:text-7xl font-extrabold text-white"
-                  style={{ transform: `translateX(${textShift}vw)`, transition: "none" }}
-                >
-                  {restTitle}
-                </h1>
+                )}
               </div>
+
             </div>
 
             {/* Content revealed after full expansion */}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Nav from "./components/Nav";
+import HeroVideoExpand from "./components/HeroVideoExpand";
 import HorizontalGallery from "./components/HorizontalGallery";
 import Services from "./components/Services";
 import AboutSection from "./components/AboutSection";
@@ -23,6 +24,7 @@ export default function Home() {
           priority
         />
         <div className="absolute inset-0 bg-[#1B4332]/45" />
+        <HeroVideoExpand />
         <div className="relative z-10 w-full px-6 flex flex-col items-center text-center">
           <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
             ARB Tree Services
