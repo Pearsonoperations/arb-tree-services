@@ -25,6 +25,12 @@
   will-change: transform;
 }
 
+@media (min-width: 768px) {
+  .services-wrapper {
+    height: calc(100vh + 200px);
+  }
+}
+
 
 
 .slide-from-left {

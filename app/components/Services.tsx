@@ -51,8 +51,8 @@ export default function Services() {
   }, []);
 
   return (
-    <div id="services" style={{ height: "calc(100vh + 200px)" }}>
-    <section className="px-6 bg-[#1B4332] sticky top-0 overflow-hidden flex items-center" style={{ height: "100vh" }}>
+    <div id="services" className="services-wrapper">
+    <section className="px-6 bg-[#1B4332] py-24 md:py-0 md:sticky md:top-0 md:overflow-hidden md:flex md:items-center md:h-screen">
       <div ref={containerRef} className="max-w-6xl mx-auto w-full">
         <div data-animate className="text-center mb-12">
           <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
