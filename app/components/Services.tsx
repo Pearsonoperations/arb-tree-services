@@ -51,8 +51,9 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className="py-24 px-6 bg-[#1B4332]">
-      <div ref={containerRef} className="max-w-6xl mx-auto">
+    <div id="services" style={{ height: "calc(100vh + 200px)" }}>
+    <section className="px-6 bg-[#1B4332] sticky top-0 overflow-hidden flex items-center" style={{ height: "100vh" }}>
+      <div ref={containerRef} className="max-w-6xl mx-auto w-full">
         <div data-animate className="text-center mb-12">
           <p className="text-base font-semibold tracking-widest text-[#16A34A] uppercase mb-3">
             What we do
@@ -91,5 +92,6 @@ export default function Services() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
