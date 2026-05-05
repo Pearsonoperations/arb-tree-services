@@ -21,7 +21,7 @@
 }
 
 .gallery-track {
-  animation: gallery-scroll 30s linear infinite;
+  animation: gallery-scroll 35s linear infinite;
   will-change: transform;
 }
 

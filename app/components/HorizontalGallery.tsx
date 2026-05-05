@@ -3,10 +3,16 @@
 import Image from "next/image";
 
 const photos = [
-  { src: "/gallery-1.jpg", alt: "Tree surgeon climbing oak tree" },
-  { src: "/gallery-2.jpg", alt: "Stump grinding in a residential garden" },
-  { src: "/gallery-3.jpg", alt: "Team felling a conifer in a terraced garden" },
   { src: "/hero-original.jpg", alt: "Manicured hedges and garden path" },
+  { src: "/g-0942.jpg", alt: "Overgrown garden — before clearance" },
+  { src: "/g-0950.jpg", alt: "Cleared garden — after clearance" },
+  { src: "/g-2297.jpg", alt: "Tree surgery in progress" },
+  { src: "/g-2602.jpg", alt: "Overgrown tree — before work" },
+  { src: "/g-2603.jpg", alt: "Finished tree work — after" },
+  { src: "/g-1943.jpg", alt: "Tree surgeon at work" },
+  { src: "/g-0396.jpg", alt: "Before tree removal" },
+  { src: "/g-0397.jpg", alt: "After tree removal" },
+  { src: "/g-1940.jpg", alt: "Tree work completed" },
 ];
 
 const loopPhotos = [...photos, ...photos];

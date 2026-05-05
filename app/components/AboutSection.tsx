@@ -63,13 +63,13 @@ export default function AboutSection() {
           </p>
         </div>
 
-        <div ref={imgRef} className="rounded-3xl overflow-hidden">
+        <div ref={imgRef} className="rounded-3xl overflow-hidden aspect-square">
           <Image
-            src="/gallery-1.jpg"
+            src="/about-hero.jpg"
             alt="ARB Tree Services team at work"
             width={600}
             height={600}
-            className="w-full h-auto object-cover"
+            className="w-full h-full object-cover object-top"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
